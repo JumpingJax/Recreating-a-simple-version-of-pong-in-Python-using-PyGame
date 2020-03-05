@@ -9,9 +9,9 @@ def main():
     pygame.display.set_caption('Pong v2')
     game = Game(surface)
     game.play()
-    #center_ball=self.ball.center
+    
     pygame.quit()
-    #return size
+    
 # This is where we define the class game    
 class Game():
     # an object in this class represents a complete game
@@ -54,16 +54,11 @@ class Game():
         
     def play(self):
         # game is played until player clicks close and until score1/score2 reaches 11
-        #self.draw()
+        
         while not self.close_clicked:
             self.draw()
             self.handle_events()
-            #while self.score1 <11 and self.score2 <11:  
-                         
-                #self.handle_events()
             
-                #self.draw()
- 
                 
             # if nothing sets this to false the game will continue to update
             if self.continue_game==True:
@@ -71,7 +66,7 @@ class Game():
             if self.continue_game==False:
                 
                 self.draw()
-                #self.handle_events()
+                
                 
             self.game_Clock.tick(self.FPS)
     # score is drawn onto the screen (unimportant this is just playing with a feature for the next version), we define color font background etc of the score message and update score upon points being scored
@@ -88,14 +83,11 @@ class Game():
         self.surface.fill(self.bg_color)
         
         self.draw_score()
-
         self.Paddle1.draw()
         self.Paddle2.draw()
-        
         self.ball.draw()
-        
-        
         pygame.display.update()
+        
     # score value set to default of 0 we tell ball to move and add 1 to frame counter upon each update. update game object for the next frame 
     def update(self):
         self.ball.move()
@@ -113,30 +105,15 @@ class Game():
         # check if ball is in either paddle if it is it is bounced off
         if self.Paddle1.collide_point(get_self_center[0]+self.ball.radius,get_self_center[1]+self.ball.radius)and self.ball.velocity[0]<0 or self.Paddle2.collide_point(get_self_center[0]+self.ball.radius,get_self_center[1]+self.ball.radius)and self.ball.velocity[0]>0:
             self.ball.bounce()
-
-        
-
-    
-                    
-            
         self.frame_counter+=self.frame_counter+1
         self.decide_continue()
+        
     # check if we have reached a score of 11    
     def decide_continue(self):
         if self.score1==11 or self.score2==11:
             self.continue_game=False
         
 
-            
-            
-        
-        
-        
- 
-        
-    
-        
-        
     # here we setup an event loop and figure out if the action to end the game has been done
     def handle_events(self):
         events=pygame.event.get()
@@ -168,12 +145,11 @@ class Ball:
         screen_height=self.surface.get_height()
         screen_size=(screen_width,screen_height)
         for i in range(0,len(self.center)):
-            #print(self.center)
             self.center[i]+=self.velocity[i]
             if (self.center[i]<=0 + self.radius or self.center[i]>=screen_size[i] - self.radius):
                 self.velocity[i]=-self.velocity[i]
         return self.center
-    # simple method if we hit something we bounce off
+    # simple method if we hit a wall or the paddle, we bounce off
     def bounce(self):
         for i in range(0,1):
         
@@ -206,7 +182,7 @@ class Rect:
        
         self.rect.move_ip(x,y)    
             
-        #print(self.move())
+        
         
         
 
